@@ -42,8 +42,8 @@ const SignupPage = () => {
         const response = await axios.post(routes.signupPath(), { username, password });
         auth.logIn();
         localStorage.setItem('userId', JSON.stringify(response.data));
-        const { from } = location.state;
-        navigate(from)
+        console.log(location)
+        navigate('/');
       } catch (err) {
         formik.setSubmitting(false);
         if (err.isAxiosError && err.response.status === 401) {
