@@ -10,6 +10,8 @@ import * as Yup from 'yup';
 const Add = ({ state }) => {
   const dispatch = useDispatch();
   const { isOpened, type } = state.modal;
+  const channelsNames = state.channelsInfo.channels
+    .map(({ name }) => name);
   const lastChannelId = state.channelsInfo.channels.length;
   const inputRef = useRef();
   const closeModal = () => dispatch(modalActions.closeModal());
@@ -24,7 +26,7 @@ const Add = ({ state }) => {
     },
     validationSchema: Yup.object({
       name: Yup.string()
-        .required('Обязательное поле'),
+        .notOneOf(channelsNames, 'должно быть уникально'),
     }),
     onSubmit: ({ name }) => {
       const channel = {
