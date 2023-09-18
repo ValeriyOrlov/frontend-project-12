@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Form, Button, Image } from 'react-bootstrap';
 import _ from 'lodash';
-import { actions as messageActions } from "../slices/messagesInfo";
+
+import socket from '../socket';
 
 const MessagesForm = () => {
-  const dispatch = useDispatch();
   const messageInputRef = useRef();
   const username = JSON.parse(localStorage.getItem('userId')).username;
   const { currentChannelId } = useSelector((state) => state.channelsInfo);
@@ -23,8 +23,11 @@ const MessagesForm = () => {
       username: username,
       id: _.uniqueId(),
     };
-    console.log(message)
-    dispatch(messageActions.addMessage({ message: message }));
+    socket.emit('newMessage', message, (res) => {
+      if (res.status !== 'ok') {
+        socket.emit('newMessage', message);
+      }
+    });
     messageInputRef.current.value = "";
   }
 
