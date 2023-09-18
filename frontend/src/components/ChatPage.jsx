@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Channels from './Channels';
 import MessagesForm from './MessagesForm';
@@ -7,9 +7,11 @@ import ModalWindow from '../modals/index.jsx';
 
 import routes from '../routes';
 import axios from 'axios';
+import socket from '../socket';
 
 import { actions as channelsActions } from '../slices/channelsInfo';
 import { actions as modalActions } from '../slices/modal';
+import { actions as messagesActions } from '../slices/messagesInfo';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
@@ -22,7 +24,9 @@ const getAuthHeader = () => {
 };
 
 const ChatPage = () => {
+  socket.connect();
   const dispatch = useDispatch();
+  const [isConnected, setIsConnected] = useState(socket.connected);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +39,22 @@ const ChatPage = () => {
       }
     };
     fetchData();
+    const onConnect = () => setIsConnected(true);
+    const onDisconnect = () => setIsConnected(false);
+
+    socket.on('connect', onConnect);
+    socket.on('disconnect', onDisconnect);
+    socket.on('newMessage', (message) => {
+      dispatch(messagesActions.addMessage( message ));
+    });
+
+    return () => {
+      socket.off('connect', onConnect);
+      socket.off('disconnect', onDisconnect);
+      socket.off('newMessage', (message) => {
+        console.log(message)
+      });  
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -59,7 +79,7 @@ const ChatPage = () => {
     };
 
     return state.messagesInfo.messages
-      .filter(({ message }) => message.channelId === activeChannelId).length;
+      .filter((message) => message.channelId === activeChannelId).length;
   })
 
   return (
