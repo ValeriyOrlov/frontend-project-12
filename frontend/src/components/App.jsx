@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, 
   Route, 
   Routes,
   Navigate,
   useLocation
 } from 'react-router-dom';
-
 import { Navbar, Button, Image } from 'react-bootstrap';
+
 import LoginPage from './LoginPage';
 import ChatPage from './ChatPage';
 import AuthContext from '../contexts';
@@ -60,7 +60,7 @@ const ChatRoute = ({ children }) => {
 }
 
 const App = () => {
-
+  
   return (
     <AuthProvider>
       <Router>

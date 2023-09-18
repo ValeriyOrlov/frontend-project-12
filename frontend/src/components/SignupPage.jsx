@@ -7,7 +7,6 @@ import routes from '../routes';
 import useAuth from '../hooks';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-
 const SignupPage = () => {
   const auth = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
