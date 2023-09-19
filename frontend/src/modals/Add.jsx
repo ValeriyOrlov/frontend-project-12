@@ -2,9 +2,9 @@ import React, { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { Modal, Form, Button } from 'react-bootstrap'
-import { actions as channelsActions } from '../slices/channelsInfo';
 import { actions as modalActions } from '../slices/modal';
 import * as Yup from 'yup';
+import socket from '../socket';
 
 
 const Add = ({ state }) => {
@@ -12,7 +12,6 @@ const Add = ({ state }) => {
   const { isOpened, type } = state.modal;
   const channelsNames = state.channelsInfo.channels
     .map(({ name }) => name);
-  const lastChannelId = state.channelsInfo.channels.length;
   const inputRef = useRef();
   const closeModal = () => dispatch(modalActions.closeModal());
 
@@ -32,11 +31,13 @@ const Add = ({ state }) => {
       const channel = {
         name,
         removable: true,
-        id: lastChannelId + 1,
       };
-      dispatch(channelsActions.setCurrentChannelId({ channelId: channel.id }));
+      socket.emit('newChannel', channel, (res) => {
+        if (res.status !== 'ok') {
+          socket.emit('newChannel', channel)
+        }
+      });
       closeModal();
-      dispatch(channelsActions.addChannel(channel));
       name = '';
     }
   });
