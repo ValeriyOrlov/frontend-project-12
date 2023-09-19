@@ -21,8 +21,8 @@ const MessagesForm = () => {
       body: data.get('body'),
       channelId: currentChannelId,
       username: username,
-      id: _.uniqueId(),
     };
+
     socket.emit('newMessage', message, (res) => {
       if (res.status !== 'ok') {
         socket.emit('newMessage', message);
