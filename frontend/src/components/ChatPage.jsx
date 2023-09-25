@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Channels from './Channels';
 import MessagesForm from './MessagesForm';
-import Messages from './Messages';
+import MessagesBox from './MessagesBox';
 import ModalWindow from '../modals/index.jsx';
 
 import routes from '../routes';
@@ -86,9 +86,7 @@ const ChatPage = () => {
               </p>
               <span className='text-muted'>{getActiveChannelMessagesCount} сообщений</span>
             </div>
-            <div id='messages-box' className='chat-messages overflow-auto px-5'>
-              <Messages />
-            </div>
+            <MessagesBox />
             <div className='mt-auto px-5 py-3'>
               <MessagesForm />
             </div>
