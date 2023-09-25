@@ -84,13 +84,21 @@ const App = () => {
     socket.on('newChannel', (channel) => {
       dispatch(channelsActions.addChannel(channel));
       dispatch(channelsActions.setCurrentChannelId({ channelId: channel.id}));
-    })
+    });
+    socket.on('renameChannel', (channel) => {
+      dispatch(channelsActions.renameChannel(channel));
+    });
+    socket.on('removeChannel', (data) => {
+      dispatch(channelsActions.removeChannel(data));
+    });
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
       socket.off('newMessage');
       socket.off('newChannel');  
+      socket.off('renameChannel');
+      socket.off('removeChannel');
     };
   })
   
