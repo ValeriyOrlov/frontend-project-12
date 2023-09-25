@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 import { actions as channelsActions } from '../slices/channelsInfo';
 import { actions as modalActions } from '../slices/modal';
+import socket from '../socket';
 
 const RemoveChannel = ({ state }) => {
   const dispatch = useDispatch();
@@ -10,9 +11,15 @@ const RemoveChannel = ({ state }) => {
   const closeModal = () => dispatch(modalActions.closeModal());
 
   const onSubmit = () => {
-    const prevChannelId = extra.channelId - 1;
-    dispatch(channelsActions.setCurrentChannelId({channelId: prevChannelId}));
-    dispatch(channelsActions.removeChannel(extra.channelId));
+    const lastChannelId = state.channelsInfo.channels.length - 1;
+    socket.emit('removeChannel', extra, (res) => {
+      dispatch(channelsActions.setCurrentChannelId({ channelId: lastChannelId }));
+      if (res.status !== 'ok') {
+        socket.emit('removeChannel', extra)
+        dispatch(channelsActions.setCurrentChannelId({ channelId: lastChannelId }));
+      }
+    })
+
     closeModal();
   };
   return (
@@ -26,16 +33,18 @@ const RemoveChannel = ({ state }) => {
         </Modal.Header>
         <Modal.Body>
           <p className="lead">Уверены?</p>
-          <div className='d-flex justify-content-end'>
+          <Form
+            onSubmit={onSubmit}
+            className='d-flex justify-content-end'
+          >
             <Button className='me-2 btn btn-secondary' type='button' onClick={closeModal}>Отменить</Button>
             <Button 
-              onClick={onSubmit}
               className='me-2 btn btn-danger'
-              type='button'
+              type='submit'
             >
               Удалить
             </Button>
-          </div>
+          </Form>
         </Modal.Body>
       </Modal>
     </>

@@ -20,12 +20,12 @@ const channelsInfoSlice = createSlice({
       state.channels = [...state.channels, payload];
     },
     removeChannel(state, { payload }) {
-      state.channels = state.channels.filter((channel) => channel.id !== payload);
+      state.channels = state.channels.filter((channel) => channel.id !== payload.id);
     },
     renameChannel(state, { payload }) {
       state.channels = state.channels.map((channel) => {
-        if (channel.id === payload.channelId) {
-          channel.name = payload.channelName;
+        if (channel.id === payload.id) {
+          channel.name = payload.name;
           return channel;
         }
         return channel;

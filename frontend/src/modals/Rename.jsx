@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useFormik } from 'formik';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { actions as modalActions } from '../slices/modal';
-import { actions as channelsActions } from '../slices/channelsInfo';
+import socket from "../socket";
 import * as Yup from 'yup';
 
 const Rename = ({ state }) => {
@@ -12,26 +12,28 @@ const Rename = ({ state }) => {
   const channelsNames = state.channelsInfo.channels
   .map(({ name }) => name);
   const inputRef = useRef();
-  const { channelId } = extra;
+  const { id } = extra;
   const closeModal = () => dispatch(modalActions.closeModal());
-  console.log(channelsNames)
   useEffect(() => {
     inputRef.current.focus();
   });
 
   const formik = useFormik({
     initialValues: {
-      channelName: '',
+      name: '',
     },
     validationSchema: Yup.object({
       channelName: Yup.string()
         .notOneOf(channelsNames, 'должно быть уникально'),
     }),
-    onSubmit: ({ channelName }) => {
-      dispatch(channelsActions.renameChannel({ channelId, channelName }));
-      console.log(channelName)
+    onSubmit: ({ name }) => {
+      socket.emit('renameChannel', { id, name }, (res) => {
+        if (res.status !== 'ok') {
+          socket.emit('renameChannel', { id, name });
+        }
+      })
       closeModal();
-      channelName = '';
+      name = '';
     }
   });
 
@@ -47,18 +49,18 @@ const Rename = ({ state }) => {
           <Form onSubmit={formik.handleSubmit}>
             <Form.Control
               className='mb-2'
-              id='channelName'
-              name='channelName'
+              id='name'
+              name='name'
               type='text'
               ref={inputRef}
-              {...formik.getFieldProps('channelName')}
+              {...formik.getFieldProps('name')}
             />
-            {formik.errors.channelName ? (
-              <div>{formik.errors.channelName}</div>
+            {formik.errors.name ? (
+              <div>{formik.errors.name}</div>
             ) : null}
             <Form.Label 
               className='visually-hidden'
-              htmlFor='channelName'
+              htmlFor='name'
             >
               Имя канала
             </Form.Label> 
