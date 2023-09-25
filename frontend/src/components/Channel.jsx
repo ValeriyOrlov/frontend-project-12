@@ -13,11 +13,11 @@ const Channel = ({ channel }) => {
   };
 
   const openRemoveModal = () => {
-    dispatch(modalActions.openModal({ type: 'removeChannel', extra: { channelId: currentChannelId }}));
+    dispatch(modalActions.openModal({ type: 'removeChannel', extra: { id: channel.id }}));
   };
 
   const openRenameModal = () => {
-    dispatch(modalActions.openModal({ type: 'renameChannel', extra: { channelId: currentChannelId }}));
+    dispatch(modalActions.openModal({ type: 'renameChannel', extra: { id: channel.id }}));
   }
 
   const renderRemovableChannel = (name) => {
