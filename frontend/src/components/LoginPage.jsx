@@ -6,7 +6,6 @@ import routes from '../routes';
 import useAuth from '../hooks';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-
 const LoginPage = () => {
   const auth = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
@@ -90,7 +89,14 @@ const LoginPage = () => {
                     />
                     <Form.Control.Feedback type="invalid">the username or password is incorrect</Form.Control.Feedback>
                   </FloatingLabel>
-                  <Button type="submit" variant="outline-primary" className='w-100'>Войти</Button>
+                  <Button 
+                    type="submit" 
+                    disabled={formik.isSubmitting}
+                    variant="outline-primary" 
+                    className='w-100'
+                  >
+                    Войти
+                  </Button>
                 </fieldset>
               </Form>
             </div>

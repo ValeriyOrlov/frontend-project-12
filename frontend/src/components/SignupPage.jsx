@@ -129,7 +129,14 @@ const SignupPage = () => {
                       ) : null}
                     <Form.Control.Feedback type="invalid">the username or password is incorrect</Form.Control.Feedback>
                   </FloatingLabel>
-                  <Button type="submit" variant="outline-primary" className='w-100'>Зарегистрироваться</Button>
+                  <Button 
+                    type="submit" 
+                    disabled={formik.isSubmitting}
+                    variant="outline-primary" 
+                    className='w-100'
+                    >
+                      Зарегистрироваться
+                    </Button>
                 </fieldset>
               </Form>
             </div>
