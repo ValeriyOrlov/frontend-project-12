@@ -49,7 +49,7 @@ const LoginPage = () => {
                 <img 
                   className="rounded-circle" 
                   style={{ width: '300px'}}
-                  src="../../images/auth_bird.jpg" 
+                  src={authFailed ? "../../images/signup_failed_bird.jpg" : "../../images/auth_bird.jpg" }
                   alt="auth_bird" />
               </div>
               <Form
