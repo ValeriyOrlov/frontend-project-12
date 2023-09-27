@@ -4,6 +4,7 @@ import { BrowserRouter as Router,
   Route, 
   Routes,
   Navigate,
+  NavLink, 
   useLocation
 } from 'react-router-dom';
 import { Navbar, Button, Image } from 'react-bootstrap';
@@ -108,11 +109,14 @@ const App = () => {
         <div className='d-flex flex-column h-100'>
           <Navbar expand="lg" className='shadow-sm bg-white'>
             <div className="container flex-nowrap">
-              <Navbar.Brand>
+              <NavLink
+                to="/"
+                style={{ textDecoration: 'none', color: 'black'}}
+              >
                 Scv
                 <LogoImg />
                   rechnik
-              </Navbar.Brand>
+              </NavLink>
               <Image 
                 src='../../images/bird_1.jpg'
                 style={{ height: '46px' }}
@@ -126,7 +130,7 @@ const App = () => {
                 style={{ height: '46px' }}
               />
               <Image 
-                src='../../images/bird_4.jpg'
+                src='../../images/bird_2.jpg'
                 style={{ height: '46px' }}
               />
               <Image 
@@ -134,7 +138,7 @@ const App = () => {
                 style={{ height: '46px' }}
               />
               <Image 
-                src='../../images/bird_2.jpg'
+                src='../../images/bird_4.jpg'
                 style={{ height: '46px' }}
               />
               <AuthButton />
