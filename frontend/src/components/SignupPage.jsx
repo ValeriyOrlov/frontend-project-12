@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const SignupPage = () => {
   const auth = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
+  const [validFormError, setValidFormError] = useState('');
   const inputRef = useRef();
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,19 +23,18 @@ const SignupPage = () => {
     initialValues: { username: '', password: '', confirmPassword: '' },
     validationSchema: Yup.object({
       username: Yup.string()
-        .min(6, 'Must be 6 characters or more')
-        .max(15, 'Must be 15 characters or less')
-        .required('Required'),
-      password: Yup.string().min(6, 'Must be 6 characters or more')
-        .required('Required'),
+        .min(3, 'От 3 до 20 символов')
+        .max(20, 'От 3 до 20 символов')
+        .required('Обязательное поле'),
+      password: Yup.string().min(6, 'Не менее 6 символов'),
       confirmPassword: Yup.string()
-        .required('Password confirmation is a required field')
         .oneOf(
           [Yup.ref('password')],
-          'Password confirmation does not match to password',
+          'Пароли должны совпадать',
         ),
     }),
     onSubmit: async (values) => {
+      setValidFormError('');
       setAuthFailed(false);
       try {
         const { username, password } = values;
@@ -45,8 +45,14 @@ const SignupPage = () => {
         navigate('/');
       } catch (err) {
         formik.setSubmitting(false);
+        setAuthFailed(true);
         if (err.isAxiosError && err.response.status === 401) {
-          setAuthFailed(true);
+          setValidFormError('Ошибка 401');
+          inputRef.current.select();
+          return;
+        }
+        if (err.isAxiosError && err.response.status === 409) {
+          setValidFormError('Такой пользователь уже существует');
           inputRef.current.select();
           return;
         }
@@ -65,7 +71,7 @@ const SignupPage = () => {
                 <img 
                   className="rounded-circle" 
                   style={{ width: '300px'}}
-                  src="../../images/registr_bird.jpg" 
+                  src={authFailed ? "../../images/signup_failed_bird.jpg" : "../../images/registr_bird.jpg" }
                   alt="signup_bird" />
               </div>
               <Form
@@ -89,7 +95,7 @@ const SignupPage = () => {
                       {...formik.getFieldProps('username')}
                     />
                      {formik.touched.username && formik.errors.username ? (
-                      <div>{formik.errors.username}</div>
+                      <div className='invalid-tooltip'>{formik.errors.username}</div>
                       ) : null}
                   </FloatingLabel>
                   <FloatingLabel
@@ -107,7 +113,7 @@ const SignupPage = () => {
                       {...formik.getFieldProps('password')}
                     />
                       {formik.touched.password && formik.errors.password ? (
-                      <div>{formik.errors.password}</div>
+                      <div className='invalid-tooltip'>{formik.errors.password}</div>
                       ) : null}
                   </FloatingLabel>
                   <FloatingLabel
@@ -125,9 +131,11 @@ const SignupPage = () => {
                       {...formik.getFieldProps('confirmPassword')}
                     />
                       {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-                      <div>{formik.errors.confirmPassword}</div>
+                      <div className='invalid-tooltip'>{formik.errors.confirmPassword}</div>
                       ) : null}
-                    <Form.Control.Feedback type="invalid">the username or password is incorrect</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">
+                      {validFormError}
+                    </Form.Control.Feedback>
                   </FloatingLabel>
                   <Button 
                     type="submit" 
