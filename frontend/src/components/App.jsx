@@ -9,6 +9,7 @@ import { BrowserRouter as Router,
 } from 'react-router-dom';
 import { Navbar, Button, Image } from 'react-bootstrap';
 import socket from '../socket';
+import { useTranslation } from 'react-i18next';
 
 import LoginPage from './LoginPage';
 import ChatPage from './ChatPage';
@@ -36,11 +37,12 @@ const AuthProvider = ({ children }) => {
 };
 
 const AuthButton = () => {
+  const { t } = useTranslation();
   const auth = useAuth();
 
   return (
     auth.loggedIn
-      ? <Button onClick={auth.logOut}>Выйти</Button>
+      ? <Button onClick={auth.logOut}>{t('logout')}</Button>
       : null
   );
 };
@@ -69,7 +71,6 @@ const ChatRoute = ({ children }) => {
 }
 
 const App = () => {
-  socket.connect();
   const dispatch = useDispatch();
   const [isConnected, setIsConnected] = useState(socket.connected);
 
@@ -102,7 +103,7 @@ const App = () => {
       socket.off('removeChannel');
     };
   })
-  
+
   return (
     <AuthProvider>
       <Router>
