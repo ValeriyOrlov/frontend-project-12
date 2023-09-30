@@ -1,14 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from "react-redux";
 import { Form, Button, Image } from 'react-bootstrap';
-import _ from 'lodash';
 
 import socket from '../socket';
+import { useTranslation } from 'react-i18next';
 
 const MessagesForm = () => {
   const messageInputRef = useRef();
   const username = JSON.parse(localStorage.getItem('userId')).username;
   const { currentChannelId } = useSelector((state) => state.channelsInfo);
+  const { t } = useTranslation();
 
   useEffect(() => {
     messageInputRef.current.focus();
@@ -42,7 +43,7 @@ const MessagesForm = () => {
           className='border-0 p-0 ps-2'
           name='body'
           aria-label='Новое сообщение'
-          placeholder='Введите сообщение...'
+          placeholder={t('enter_a_message')}
           ref={messageInputRef}
         />
         <Button

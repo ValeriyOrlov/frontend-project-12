@@ -5,6 +5,7 @@ import { Modal, Form, Button } from 'react-bootstrap'
 import { actions as modalActions } from '../slices/modal';
 import * as Yup from 'yup';
 import socket from '../socket';
+import { useTranslation } from 'react-i18next';
 
 
 const Add = ({ state }) => {
@@ -14,6 +15,7 @@ const Add = ({ state }) => {
     .map(({ name }) => name);
   const inputRef = useRef();
   const closeModal = () => dispatch(modalActions.closeModal());
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -49,7 +51,7 @@ const Add = ({ state }) => {
         onHide={closeModal}
         >
         <Modal.Header closeButton>
-          <Modal.Title>Добавить канал</Modal.Title>
+          <Modal.Title>{t('add_channel')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={formik.handleSubmit}>
@@ -68,11 +70,11 @@ const Add = ({ state }) => {
               className='visually-hidden'
               htmlFor='name'
             >
-              Имя канала
+              {t('channel_name')}
             </Form.Label> 
             <div className='d-flex justify-content-end'>
-              <Button className='me-2 btn btn-secondary' type='button' onClick={closeModal}>Отменить</Button>
-              <Button className='me-2 btn btn-primary' type='submit'>Отправить</Button>
+              <Button className='me-2 btn btn-secondary' type='button' onClick={closeModal}>{t('cancel')}</Button>
+              <Button className='me-2 btn btn-primary' type='submit'>{t('send')}</Button>
             </div>
           </Form>
         </Modal.Body>

@@ -3,10 +3,12 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { actions as channelsActions } from '../slices/channelsInfo';
 import { actions as modalActions } from '../slices/modal';
 import socket from '../socket';
+import { useTranslation } from 'react-i18next';
 
 const RemoveChannel = ({ state }) => {
   const dispatch = useDispatch();
   const { isOpened, type, extra } = state.modal;
+  const { t } = useTranslation();
 
   const closeModal = () => dispatch(modalActions.closeModal());
 
@@ -29,20 +31,20 @@ const RemoveChannel = ({ state }) => {
         onHide={closeModal}
         >
         <Modal.Header closeButton>
-          <Modal.Title>Удалить канал</Modal.Title>
+          <Modal.Title>{t('delete_channel')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p className="lead">Уверены?</p>
+          <p className="lead">{t('confirmation')}</p>
           <Form
             onSubmit={onSubmit}
             className='d-flex justify-content-end'
           >
-            <Button className='me-2 btn btn-secondary' type='button' onClick={closeModal}>Отменить</Button>
+            <Button className='me-2 btn btn-secondary' type='button' onClick={closeModal}>{t('cancel')}</Button>
             <Button 
               className='me-2 btn btn-danger'
               type='submit'
             >
-              Удалить
+              {t('remove')}
             </Button>
           </Form>
         </Modal.Body>

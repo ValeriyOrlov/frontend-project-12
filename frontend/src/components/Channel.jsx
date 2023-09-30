@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions as channelsActions } from '../slices/channelsInfo';
 import { actions as modalActions } from '../slices/modal';
 import { Dropdown, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const Channel = ({ channel }) => {
   const dispatch = useDispatch();
-  const { currentChannelId } = useSelector((state) => state.channelsInfo)
+  const { currentChannelId } = useSelector((state) => state.channelsInfo);
+  const { t } = useTranslation();
 
   const setCurrentChannelId = () => {
     dispatch(channelsActions.setCurrentChannelId({ channelId: channel.id }));
@@ -41,12 +43,12 @@ const Channel = ({ channel }) => {
           <Dropdown.Item 
             onClick={openRemoveModal}
             >
-              Удалить
+              {t('delete')}
           </Dropdown.Item>
           <Dropdown.Item
             onClick={openRenameModal}
           >
-            Переименовать
+            {t('rename')}
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>

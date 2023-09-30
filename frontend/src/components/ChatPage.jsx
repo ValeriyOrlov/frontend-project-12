@@ -7,6 +7,7 @@ import ModalWindow from '../modals/index.jsx';
 
 import routes from '../routes';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 import { actions as channelsActions } from '../slices/channelsInfo';
 import { actions as modalActions } from '../slices/modal';
@@ -23,6 +24,7 @@ const getAuthHeader = () => {
 
 const ChatPage = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +69,7 @@ const ChatPage = () => {
       <div className='row h-100 bg-white flex-md-row'>
         <div className='col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex'>
           <div className='d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4'>
-            <b>Каналы</b>
+            <b>{t('channels')}</b>
             <button 
               className='p-0 text-primary btn btn-group-vertical'
               onClick={openAddChannelModal} 
@@ -84,7 +86,7 @@ const ChatPage = () => {
               <span className="me-1">#</span>
                 <b>{getActiveChannelName}</b>
               </p>
-              <span className='text-muted'>{getActiveChannelMessagesCount} сообщений</span>
+              <span className='text-muted'>{t('key', {count: getActiveChannelMessagesCount})}</span>
             </div>
             <MessagesBox />
             <div className='mt-auto px-5 py-3'>

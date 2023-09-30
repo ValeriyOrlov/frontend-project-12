@@ -5,6 +5,7 @@ import axios from 'axios';
 import routes from '../routes';
 import useAuth from '../hooks';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
   const auth = useAuth();
@@ -12,6 +13,7 @@ const LoginPage = () => {
   const inputRef = useRef();
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -56,17 +58,17 @@ const LoginPage = () => {
                 onSubmit={formik.handleSubmit}
                 className="col-12 col-md-6 mt-3 mt-mb-0"
                 >
-                <h1 className='text-center mb-4'>Войти</h1>
+                <h1 className='text-center mb-4'>{t('login')}</h1>
                 <fieldset disabled={formik.isSubmitting}>
                   <FloatingLabel
                     controlId='username'
-                    label='Ваш ник'
+                    label={t('nickname')}
                     className='mb-3'
                     >
                     <Form.Control
                       name="username"
                       autoComplete='username'
-                      placeholder='Ваш ник'
+                      placeholder={t('nickname')}
                       isInvalid={authFailed}
                       required
                       ref={inputRef}
@@ -75,19 +77,19 @@ const LoginPage = () => {
                   </FloatingLabel>
                   <FloatingLabel
                     controlId="floatingInput"
-                    label="Пароль"
+                    label={t('password')}
                     className="mb-3"
                     >
                     <Form.Control 
                       name='password'
                       autoComplete='password'
                       type="password" 
-                      placeholder="Пароль"
+                      placeholder={t('password')}
                       isInvalid={authFailed}
                       required
                       {...formik.getFieldProps('password')}
                     />
-                    <Form.Control.Feedback type="invalid">the username or password is incorrect</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{t('Incorrect_username_and_password')}</Form.Control.Feedback>
                   </FloatingLabel>
                   <Button 
                     type="submit" 
@@ -95,16 +97,16 @@ const LoginPage = () => {
                     variant="outline-primary" 
                     className='w-100'
                   >
-                    Войти
+                    {t('login')}
                   </Button>
                 </fieldset>
               </Form>
             </div>
             <div className='card-footer p-4'>
               <div className='text-center'>
-                <span>Нет аккаунта?</span>
+                <span>{t('no_account')}</span>
                 {' '}
-                <a href="/signup">Регистрация</a>
+                <a href="/signup">{t('sign_up')}</a>
               </div>
             </div>
           </div>

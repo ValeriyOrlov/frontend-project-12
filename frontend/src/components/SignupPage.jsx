@@ -6,6 +6,7 @@ import axios from 'axios';
 import routes from '../routes';
 import useAuth from '../hooks';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const SignupPage = () => {
   const auth = useAuth();
@@ -14,6 +15,7 @@ const SignupPage = () => {
   const inputRef = useRef();
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -23,14 +25,14 @@ const SignupPage = () => {
     initialValues: { username: '', password: '', confirmPassword: '' },
     validationSchema: Yup.object({
       username: Yup.string()
-        .min(3, 'От 3 до 20 символов')
-        .max(20, 'От 3 до 20 символов')
-        .required('Обязательное поле'),
-      password: Yup.string().min(6, 'Не менее 6 символов'),
+        .min(3, `${t('from_3_to_20 characters')}`)
+        .max(20, `${t('from_3_to_20 characters')}`)
+        .required(t('required_field')),
+      password: Yup.string().min(6, `${t('at_least_6_characters')}`),
       confirmPassword: Yup.string()
         .oneOf(
           [Yup.ref('password')],
-          'Пароли должны совпадать',
+          `${t('passwords_must_not_match')}`,
         ),
     }),
     onSubmit: async (values) => {
@@ -47,12 +49,12 @@ const SignupPage = () => {
         formik.setSubmitting(false);
         setAuthFailed(true);
         if (err.isAxiosError && err.response.status === 401) {
-          setValidFormError('Ошибка 401');
+          setValidFormError(`${t('error')} 401`);
           inputRef.current.select();
           return;
         }
         if (err.isAxiosError && err.response.status === 409) {
-          setValidFormError('Такой пользователь уже существует');
+          setValidFormError(`${t('such_a_user_already_exists')}`);
           inputRef.current.select();
           return;
         }
@@ -78,17 +80,17 @@ const SignupPage = () => {
                 onSubmit={formik.handleSubmit}
                 className="col-12 col-md-6 mt-3 mt-mb-0"
                 >
-                <h1 className='text-center mb-4'>Регистрация</h1>
+                <h1 className='text-center mb-4'>{t('sign_up')}</h1>
                 <fieldset disabled={formik.isSubmitting}>
                   <FloatingLabel
                     controlId='username'
-                    label='Имя пользователя'
+                    label={t('username')}
                     className='mb-3'
                     >
                     <Form.Control
                       name="username"
                       autoComplete='username'
-                      placeholder='От 3 до 20 символов'
+                      placeholder={t('from_3_to_20 characters')}
                       isInvalid={authFailed}
                       required
                       ref={inputRef}
@@ -100,14 +102,14 @@ const SignupPage = () => {
                   </FloatingLabel>
                   <FloatingLabel
                     controlId="floatingInput"
-                    label="Пароль"
+                    label={t('password')}
                     className="mb-3"
                     >
                     <Form.Control 
                       name='password'
                       type='password'
                       autoComplete='password'
-                      placeholder="Не менее 6 символов"
+                      placeholder={t('at_least_6_characters')}
                       isInvalid={authFailed}
                       required
                       {...formik.getFieldProps('password')}
@@ -118,14 +120,14 @@ const SignupPage = () => {
                   </FloatingLabel>
                   <FloatingLabel
                     controlId="floatingInput"
-                    label="Подтверите пароль"
+                    label={t('confirm_pswrd')}
                     className="mb-4"
                     >
                     <Form.Control 
                       name='confirmPassword'
                       type='password'
                       autoComplete='confirmPassword'
-                      placeholder="Пароли должны совпадать"
+                      placeholder={t('passwords_must_not_match')}
                       isInvalid={authFailed}
                       required
                       {...formik.getFieldProps('confirmPassword')}
@@ -143,7 +145,7 @@ const SignupPage = () => {
                     variant="outline-primary" 
                     className='w-100'
                     >
-                      Зарегистрироваться
+                      {t('sign_up')}
                     </Button>
                 </fieldset>
               </Form>

@@ -5,6 +5,7 @@ import { Form, Button, Modal } from 'react-bootstrap';
 import { actions as modalActions } from '../slices/modal';
 import socket from "../socket";
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 const Rename = ({ state }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,8 @@ const Rename = ({ state }) => {
   const inputRef = useRef();
   const { id } = extra;
   const closeModal = () => dispatch(modalActions.closeModal());
+  const { t } = useTranslation();
+
   useEffect(() => {
     inputRef.current.focus();
   });
@@ -43,7 +46,7 @@ const Rename = ({ state }) => {
       onHide={closeModal}
     >
       <Modal.Header closeButton>
-          <Modal.Title>Переименовать канал</Modal.Title>
+          <Modal.Title>{t('rename_the_channel')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={formik.handleSubmit}>
@@ -62,11 +65,11 @@ const Rename = ({ state }) => {
               className='visually-hidden'
               htmlFor='name'
             >
-              Имя канала
+              {t('channel_name')}
             </Form.Label> 
             <div className='d-flex justify-content-end'>
-              <Button className='me-2 btn btn-secondary' type='button' onClick={closeModal}>Отменить</Button>
-              <Button className='me-2 btn btn-primary' type='submit'>Отправить</Button>
+              <Button className='me-2 btn btn-secondary' type='button' onClick={closeModal}>{t('cancel')}</Button>
+              <Button className='me-2 btn btn-primary' type='submit'>{t('send')}</Button>
             </div>
           </Form>
         </Modal.Body>
