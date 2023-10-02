@@ -36,6 +36,10 @@ const LoginPage = () => {
           inputRef.current.select();
           return;
         }
+        if (err.isAxiosError && err.response.status === 500) {
+          alert('Error')
+          return;
+        }
         throw err;
       }
     },
