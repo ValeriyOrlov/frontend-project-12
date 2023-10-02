@@ -77,35 +77,27 @@ const ChatRoute = ({ children }) => {
 
 const App = () => {
   const dispatch = useDispatch();
-  const [isConnected, setIsConnected] = useState(socket.connected);
 
   useEffect(() => {
-    const onConnect = () => setIsConnected(true);
-    const onDisconnect = () => setIsConnected(false);
-
-    socket.on('connect', onConnect);
-    socket.on('disconnect', onDisconnect);
+    socket.on('connect');
+    socket.on('disconnect');
     socket.on('newMessage', (message) => {
       dispatch(messagesActions.addMessage(message));
     });
     socket.on('newChannel', (channel) => {
       dispatch(channelsActions.addChannel(channel));
       dispatch(channelsActions.setCurrentChannelId({ channelId: channel.id}));
-      console.log('on add')
     });
     socket.on('renameChannel', (channel) => {
       dispatch(channelsActions.renameChannel(channel));
-      console.log('on rename')
     });
     socket.on('removeChannel', (data) => {
       dispatch(channelsActions.removeChannel(data));
-      console.log('on remove')
-
     });
 
     return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
+      socket.off('connect');
+      socket.off('disconnect');
       socket.off('newMessage');
       socket.off('newChannel');  
       socket.off('renameChannel');
