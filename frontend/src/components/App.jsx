@@ -79,8 +79,6 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    socket.on('connect');
-    socket.on('disconnect');
     socket.on('newMessage', (message) => {
       dispatch(messagesActions.addMessage(message));
     });
@@ -96,8 +94,6 @@ const App = () => {
     });
 
     return () => {
-      socket.off('connect');
-      socket.off('disconnect');
       socket.off('newMessage');
       socket.off('newChannel');  
       socket.off('renameChannel');
