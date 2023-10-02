@@ -10,7 +10,6 @@ import { BrowserRouter as Router,
 import { Navbar, Button, Image } from 'react-bootstrap';
 import socket from '../socket';
 import { useTranslation } from 'react-i18next';
-
 import LoginPage from './LoginPage';
 import ChatPage from './ChatPage';
 import AuthContext from '../contexts';
@@ -18,6 +17,12 @@ import useAuth from '../hooks';
 import SignupPage from './SignupPage';
 import { actions as messagesActions } from '../slices/messagesInfo';
 import { actions as channelsActions } from '../slices/channelsInfo';
+import { Provider, ErrorBoundary } from '@rollbar/react';
+
+const rollbarConfig = {
+  accessToken: '3150ed3210e24b52acb61437a05bedf0',
+  environment: 'testenv',
+};
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -109,59 +114,65 @@ const App = () => {
   })
 
   return (
-    <AuthProvider>
-      <Router>
-        <div className='d-flex flex-column h-100'>
-          <Navbar expand="lg" className='shadow-sm bg-white'>
-            <div className="container flex-nowrap">
-              <NavLink
-                to="/"
-                style={{ textDecoration: 'none', color: 'black'}}
-              >
-                Scv
-                <LogoImg />
-                  rechnik
-              </NavLink>
-              <Image 
-                src='../../images/bird_1.jpg'
-                style={{ height: '46px' }}
-              />
-              <Image 
-                src='../../images/bird_2.jpg'
-                style={{ height: '46px' }}
-              />
-              <Image 
-                src='../../images/bird_3.jpg'
-                style={{ height: '46px' }}
-              />
-              <Image 
-                src='../../images/bird_2.jpg'
-                style={{ height: '46px' }}
-              />
-              <Image 
-                src='../../images/bird_1.jpg'
-                style={{ height: '46px' }}
-              />
-              <Image 
-                src='../../images/bird_4.jpg'
-                style={{ height: '46px' }}
-              />
-              <AuthButton />
-            </div>
-          </Navbar>
-          <Routes>
-            <Route path='/' element={(
-              <ChatRoute>
-                <ChatPage />
-              </ChatRoute>                
-              )} 
-            />
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/signup' element={<SignupPage />} />
-          </Routes>
-        </div>
-      </Router>
-    </AuthProvider>
+    <>
+      <Provider config={rollbarConfig}>
+        <ErrorBoundary>
+          <AuthProvider>
+            <Router>
+              <div className='d-flex flex-column h-100'>
+                <Navbar expand="lg" className='shadow-sm bg-white'>
+                  <div className="container flex-nowrap">
+                    <NavLink
+                      to="/"
+                      style={{ textDecoration: 'none', color: 'black'}}
+                    >
+                      Scv
+                      <LogoImg />
+                        rechnik
+                    </NavLink>
+                    <Image 
+                      src='../../images/bird_1.jpg'
+                      style={{ height: '46px' }}
+                    />
+                    <Image 
+                      src='../../images/bird_2.jpg'
+                      style={{ height: '46px' }}
+                    />
+                    <Image 
+                      src='../../images/bird_3.jpg'
+                      style={{ height: '46px' }}
+                    />
+                    <Image 
+                      src='../../images/bird_2.jpg'
+                      style={{ height: '46px' }}
+                    />
+                    <Image 
+                      src='../../images/bird_1.jpg'
+                      style={{ height: '46px' }}
+                    />
+                    <Image 
+                      src='../../images/bird_4.jpg'
+                      style={{ height: '46px' }}
+                    />
+                    <AuthButton />
+                  </div>
+                </Navbar>
+                <Routes>
+                  <Route path='/' element={(
+                    <ChatRoute>
+                      <ChatPage />
+                    </ChatRoute>                
+                    )} 
+                  />
+                  <Route path='/login' element={<LoginPage />} />
+                  <Route path='/signup' element={<SignupPage />} />
+                </Routes>
+              </div>
+            </Router>
+          </AuthProvider>
+        </ErrorBoundary>
+      </Provider>
+    </>
   )
 };
 
