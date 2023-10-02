@@ -29,6 +29,11 @@ const en = {
       "such_a_user_already_exists": "such a user already exists",
       "error": 'Error',
       "Incorrect_username_and_password": "Incorrect username and password",
+      "Add_channel_toastify_msg": "Сhannel is added",
+      "Rename_channel_toastify_msg": "Channel renamed",
+      "Remove_channel_toastify_msg": "Channel removed",
+      "Channel_err_msg": "Channel error",
+      "Data_loading_error": "Data loading error",
 
   },
 };

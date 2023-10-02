@@ -31,6 +31,11 @@ const ru = {
     "such_a_user_already_exists": "Такой пользователь уже существует",
     "error": 'Ошибка',
     "Incorrect_username_and_password": "Неверные имя пользователя и пароль",
+    "Add_channel_toastify_msg": "Канал добавлен",
+    "Rename_channel_toastify_msg": "Канал переименован",
+    "Remove_channel_toastify_msg": "Канал удален",
+    "Channel_err_msg": "Ошибка канала",
+    "Data_loading_error": "Ошибка загрузки данных",
   },
 };
 
