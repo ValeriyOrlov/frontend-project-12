@@ -7,17 +7,15 @@ import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const RemoveChannel = ({ state }) => {
+const RemoveChannel = ({ channels, isOpened, type, extra }) => {
   const dispatch = useDispatch();
-  const { isOpened, type, extra } = state.modal;
   const { t } = useTranslation();
 
   const closeModal = () => dispatch(modalActions.closeModal());
 
   const onSubmit = () => {
-    const lastChannelId = state.channelsInfo.channels.length - 1;
+    const lastChannelId = channels.length - 1;
     socket.emit('removeChannel', extra, (res) => {
-      console.log('emit remove')
       dispatch(channelsActions.setCurrentChannelId({ channelId: lastChannelId }));
       if (res.status !== 'ok') {
         toast(t('Channel_err_msg'));

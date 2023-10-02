@@ -4,8 +4,8 @@ import Remove from './Remove.jsx';
 import Rename from './Rename.jsx';
 
 const ModalWindow = () => {
-  const state = useSelector((state) => state)
-  const { type } = useSelector((state) => state.modal);
+  const channels = useSelector((state) => state.channelsInfo.channels)
+  const { isOpened, type, extra } = useSelector((state) => state.modal);
   if (!type) {
     return null;
   }
@@ -16,7 +16,7 @@ const ModalWindow = () => {
     renameChannel: Rename,
   }
   const Component = modals[type];
-  return <Component state={state} />
+  return <Component channels={channels} isOpened={isOpened} type={type} extra={extra} />
 };
 
 export default ModalWindow;

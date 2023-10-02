@@ -9,11 +9,9 @@ import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Add = ({ state }) => {
+const Add = ({ channels, isOpened, type }) => {
   const dispatch = useDispatch();
-  const { isOpened, type } = state.modal;
-  const channelsNames = state.channelsInfo.channels
-    .map(({ name }) => name);
+  const channelsNames = channels.map(({ name }) => name);
   const inputRef = useRef();
   const closeModal = () => dispatch(modalActions.closeModal());
   const { t } = useTranslation();
@@ -36,7 +34,6 @@ const Add = ({ state }) => {
         removable: true,
       };
       socket.emit('newChannel', channel, (res) => {
-        console.log('emit add')
         if (res.status !== 'ok') {
           toast(t('Channel_err_msg'));
           socket.emit('newChannel', channel)

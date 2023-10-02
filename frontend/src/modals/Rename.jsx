@@ -9,11 +9,9 @@ import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Rename = ({ state }) => {
+const Rename = ({ channels, isOpened, type, extra }) => {
   const dispatch = useDispatch();
-  const { isOpened, type, extra } = state.modal;
-  const channelsNames = state.channelsInfo.channels
-  .map(({ name }) => name);
+  const channelsNames = channels.map(({ name }) => name);
   const inputRef = useRef();
   const { id } = extra;
   const closeModal = () => dispatch(modalActions.closeModal());
@@ -33,7 +31,6 @@ const Rename = ({ state }) => {
     }),
     onSubmit: ({ name }) => {
       socket.emit('renameChannel', { id, name }, (res) => {
-        console.log('emit rename')
         if (res.status !== 'ok') {
           toast(t('Channel_err_msg'));
           socket.emit('renameChannel', { id, name });
