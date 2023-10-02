@@ -6,6 +6,8 @@ import { actions as modalActions } from '../slices/modal';
 import socket from "../socket";
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Rename = ({ state }) => {
   const dispatch = useDispatch();
@@ -31,21 +33,25 @@ const Rename = ({ state }) => {
     }),
     onSubmit: ({ name }) => {
       socket.emit('renameChannel', { id, name }, (res) => {
+        console.log('emit rename')
         if (res.status !== 'ok') {
+          toast(t('Channel_err_msg'));
           socket.emit('renameChannel', { id, name });
         }
       })
+      toast(t('Rename_channel_toastify_msg'));
       closeModal();
       name = '';
     }
   });
 
   return (
-    <Modal
-      show={isOpened && type === 'renameChannel'} 
-      onHide={closeModal}
-    >
-      <Modal.Header closeButton>
+    <>
+      <Modal
+        show={isOpened && type === 'renameChannel'} 
+        onHide={closeModal}
+      >
+        <Modal.Header closeButton>
           <Modal.Title>{t('rename_the_channel')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -73,7 +79,9 @@ const Rename = ({ state }) => {
             </div>
           </Form>
         </Modal.Body>
-    </Modal>
+      </Modal>
+      <ToastContainer />
+    </>
   )
 };
 

@@ -11,6 +11,8 @@ import { useTranslation } from 'react-i18next';
 
 import { actions as channelsActions } from '../slices/channelsInfo';
 import { actions as modalActions } from '../slices/modal';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
@@ -31,8 +33,8 @@ const ChatPage = () => {
       try {
         const { data } = await axios.get(routes.getData(), { headers: getAuthHeader() });
         dispatch(channelsActions.setInitialState(data));
-
       } catch(err) {
+        toast(t('Data_loading_error'));
         throw err;
       }
     };
@@ -95,6 +97,7 @@ const ChatPage = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   )
 }

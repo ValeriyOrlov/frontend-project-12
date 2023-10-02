@@ -86,12 +86,16 @@ const App = () => {
     socket.on('newChannel', (channel) => {
       dispatch(channelsActions.addChannel(channel));
       dispatch(channelsActions.setCurrentChannelId({ channelId: channel.id}));
+      console.log('on add')
     });
     socket.on('renameChannel', (channel) => {
       dispatch(channelsActions.renameChannel(channel));
+      console.log('on rename')
     });
     socket.on('removeChannel', (data) => {
       dispatch(channelsActions.removeChannel(data));
+      console.log('on remove')
+
     });
 
     return () => {

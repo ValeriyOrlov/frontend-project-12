@@ -4,6 +4,8 @@ import { actions as channelsActions } from '../slices/channelsInfo';
 import { actions as modalActions } from '../slices/modal';
 import socket from '../socket';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RemoveChannel = ({ state }) => {
   const dispatch = useDispatch();
@@ -15,13 +17,15 @@ const RemoveChannel = ({ state }) => {
   const onSubmit = () => {
     const lastChannelId = state.channelsInfo.channels.length - 1;
     socket.emit('removeChannel', extra, (res) => {
+      console.log('emit remove')
       dispatch(channelsActions.setCurrentChannelId({ channelId: lastChannelId }));
       if (res.status !== 'ok') {
+        toast(t('Channel_err_msg'));
         socket.emit('removeChannel', extra)
         dispatch(channelsActions.setCurrentChannelId({ channelId: lastChannelId }));
       }
     })
-
+    toast(t('Remove_channel_toastify_msg'));
     closeModal();
   };
   return (
@@ -49,6 +53,7 @@ const RemoveChannel = ({ state }) => {
           </Form>
         </Modal.Body>
       </Modal>
+      <ToastContainer />
     </>
   );
 };

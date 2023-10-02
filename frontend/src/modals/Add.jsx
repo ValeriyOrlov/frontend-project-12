@@ -6,7 +6,8 @@ import { actions as modalActions } from '../slices/modal';
 import * as Yup from 'yup';
 import socket from '../socket';
 import { useTranslation } from 'react-i18next';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Add = ({ state }) => {
   const dispatch = useDispatch();
@@ -35,10 +36,13 @@ const Add = ({ state }) => {
         removable: true,
       };
       socket.emit('newChannel', channel, (res) => {
+        console.log('emit add')
         if (res.status !== 'ok') {
+          toast(t('Channel_err_msg'));
           socket.emit('newChannel', channel)
         }
       });
+      toast(t('Add_channel_toastify_msg'));
       closeModal();
       name = '';
     }
@@ -79,6 +83,7 @@ const Add = ({ state }) => {
           </Form>
         </Modal.Body>
       </Modal>
+      <ToastContainer />
     </>
   );
 };
