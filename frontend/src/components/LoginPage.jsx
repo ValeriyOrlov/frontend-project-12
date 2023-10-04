@@ -6,6 +6,8 @@ import routes from '../routes';
 import useAuth from '../hooks';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginPage = () => {
   const auth = useAuth();
@@ -37,7 +39,11 @@ const LoginPage = () => {
           return;
         }
         if (err.isAxiosError && err.response.status === 500) {
-          alert('Error')
+          setValidFormError(`${t('error')} 500`);
+          return;
+        }
+        if (err.message === 'Network Error') {
+          toast(t('Connection_error'));
           return;
         }
         throw err;
