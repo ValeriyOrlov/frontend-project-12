@@ -115,9 +115,8 @@ const App = () => {
                       to="/"
                       style={{ textDecoration: 'none', color: 'black'}}
                     >
-                      Scv
+                      Hexlet Chat
                       <LogoImg />
-                        rechnik
                     </NavLink>
                     <Image 
                       src='../../images/bird_1.jpg'
