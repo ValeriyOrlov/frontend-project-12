@@ -7,7 +7,7 @@ import routes from '../routes';
 import useAuth from '../hooks';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const SignupPage = () => {
@@ -51,7 +51,7 @@ const SignupPage = () => {
         formik.setSubmitting(false);
         setAuthFailed(true);
         if (err.isAxiosError && err.response.status === 401) {
-          setValidFormError(`${t('error')} 401`);
+          setValidFormError(`${t('server_error')}`);
           inputRef.current.select();
           return;
         }
