@@ -25,9 +25,9 @@ const en = {
       "from_3_to_20 characters": "from 3 to 20 characters",
       "required_field": "Required field",
       "at_least_6_characters": "at least 6 characters",
-      "passwords_must_not_match": "passwords must not match",
+      "passwords_must_match": "passwords must match",
       "such_a_user_already_exists": "such a user already exists",
-      "error": 'Error',
+      "server_error": 'Server error (500)',      
       "Incorrect_username_and_password": "Incorrect username and password",
       "Add_channel_toastify_msg": "Сhannel is added",
       "Rename_channel_toastify_msg": "Channel renamed",
@@ -35,7 +35,8 @@ const en = {
       "Channel_err_msg": "Channel error",
       "Data_loading_error": "Data loading error",
       "Page_not_found": "Страница не найдена",
-      "Go_to_the_main_page": "Check out the home page!"
+      "Go_to_the_main_page": "Check out the home page!",
+      "Connection_error": "Connection error",
   },
 };
 
