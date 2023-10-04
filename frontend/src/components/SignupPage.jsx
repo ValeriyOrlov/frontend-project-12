@@ -34,7 +34,7 @@ const SignupPage = () => {
       confirmPassword: Yup.string()
         .oneOf(
           [Yup.ref('password')],
-          `${t('passwords_must_not_match')}`,
+          `${t('passwords_must_match')}`,
         ),
     }),
     onSubmit: async (values) => {
@@ -103,7 +103,7 @@ const SignupPage = () => {
                       {...formik.getFieldProps('username')}
                     />
                      {formik.touched.username && formik.errors.username ? (
-                      <div className='invalid-tooltip'>{formik.errors.username}</div>
+                      <div>{formik.errors.username}</div>
                       ) : null}
                   </FloatingLabel>
                   <FloatingLabel
@@ -121,7 +121,7 @@ const SignupPage = () => {
                       {...formik.getFieldProps('password')}
                     />
                       {formik.touched.password && formik.errors.password ? (
-                      <div className='invalid-tooltip'>{formik.errors.password}</div>
+                      <div>{formik.errors.password}</div>
                       ) : null}
                   </FloatingLabel>
                   <FloatingLabel
@@ -133,13 +133,13 @@ const SignupPage = () => {
                       name='confirmPassword'
                       type='password'
                       autoComplete='confirmPassword'
-                      placeholder={t('passwords_must_not_match')}
+                      placeholder={t('passwords_must_match')}
                       isInvalid={authFailed}
                       required
                       {...formik.getFieldProps('confirmPassword')}
                     />
                       {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-                      <div className='invalid-tooltip'>{formik.errors.confirmPassword}</div>
+                      <div>{formik.errors.confirmPassword}</div>
                       ) : null}
                     <Form.Control.Feedback type="invalid">
                       {validFormError}
