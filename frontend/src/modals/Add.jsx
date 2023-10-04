@@ -6,7 +6,7 @@ import { actions as modalActions } from '../slices/modal';
 import * as Yup from 'yup';
 import socket from '../socket';
 import { useTranslation } from 'react-i18next';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Add = ({ channels, isOpened, type }) => {
@@ -80,7 +80,6 @@ const Add = ({ channels, isOpened, type }) => {
           </Form>
         </Modal.Body>
       </Modal>
-      <ToastContainer />
     </>
   );
 };

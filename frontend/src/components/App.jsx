@@ -19,6 +19,8 @@ import ErrorPage from './ErrorPage';
 import { actions as messagesActions } from '../slices/messagesInfo';
 import { actions as channelsActions } from '../slices/channelsInfo';
 import { Provider, ErrorBoundary } from '@rollbar/react';
+import { ToastContainer } from 'react-toastify';
+
 
 const rollbarConfig = {
   accessToken: '3150ed3210e24b52acb61437a05bedf0',
@@ -161,6 +163,7 @@ const App = () => {
           </AuthProvider>
         </ErrorBoundary>
       </Provider>
+      <ToastContainer />
     </>
   )
 };

@@ -6,7 +6,7 @@ import { actions as modalActions } from '../slices/modal';
 import socket from "../socket";
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Rename = ({ channels, isOpened, type, extra }) => {
@@ -77,7 +77,6 @@ const Rename = ({ channels, isOpened, type, extra }) => {
           </Form>
         </Modal.Body>
       </Modal>
-      <ToastContainer />
     </>
   )
 };
