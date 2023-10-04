@@ -15,6 +15,7 @@ import ChatPage from './ChatPage';
 import AuthContext from '../contexts';
 import useAuth from '../hooks';
 import SignupPage from './SignupPage';
+import ErrorPage from './ErrorPage';
 import { actions as messagesActions } from '../slices/messagesInfo';
 import { actions as channelsActions } from '../slices/channelsInfo';
 import { Provider, ErrorBoundary } from '@rollbar/react';
@@ -150,8 +151,9 @@ const App = () => {
                     <ChatRoute>
                       <ChatPage />
                     </ChatRoute>                
-                    )} 
+                    )}
                   />
+                  <Route path='*' element={<ErrorPage />} /> 
                   <Route path='/login' element={<LoginPage />} />
                   <Route path='/signup' element={<SignupPage />} />
                 </Routes>
