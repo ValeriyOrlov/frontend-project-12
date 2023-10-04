@@ -1,16 +1,13 @@
-import { useRouteError } from "react-router-dom";
+import React  from 'react';
+import { useTranslation } from 'react-i18next';
 
 const ErrorPage = () => {
-  const error = useRouteError();
-  console.error(error);
+  const { t } = useTranslation();
 
   return (
-    <div id="error-page">
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
-      <p>
-        <i>{error.statusText || error.message}</i>
-      </p>
+    <div className='text-center'>
+      <h1>{t('Page_not_found')}</h1>
+      <a href='/'>{t('Go_to_the_main_page')}</a>
     </div>
   );
 }
