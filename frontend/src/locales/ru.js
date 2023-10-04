@@ -36,6 +36,8 @@ const ru = {
     "Remove_channel_toastify_msg": "Канал удален",
     "Channel_err_msg": "Ошибка канала",
     "Data_loading_error": "Ошибка загрузки данных",
+    "Page_not_found": "Страница не найдена",
+    "Go_to_the_main_page": "Залетайте на главную страницу!"
   },
 };
 

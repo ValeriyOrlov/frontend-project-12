@@ -34,7 +34,8 @@ const en = {
       "Remove_channel_toastify_msg": "Channel removed",
       "Channel_err_msg": "Channel error",
       "Data_loading_error": "Data loading error",
-
+      "Page_not_found": "Страница не найдена",
+      "Go_to_the_main_page": "Check out the home page!"
   },
 };
 
