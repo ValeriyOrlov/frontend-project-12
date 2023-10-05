@@ -116,7 +116,7 @@ const LoginPage = () => {
               <div className='text-center'>
                 <span>{t('no_account')}</span>
                 {' '}
-                <a href="/signup">{t('sign_up')}</a>
+                <a href="/signup">{t('registration')}</a>
               </div>
             </div>
           </div>
