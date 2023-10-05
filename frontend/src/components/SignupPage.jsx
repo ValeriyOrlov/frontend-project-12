@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import routes from '../routes';
 import useAuth from '../hooks';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,7 +15,6 @@ const SignupPage = () => {
   const [authFailed, setAuthFailed] = useState(false);
   const [validFormError, setValidFormError] = useState('');
   const inputRef = useRef();
-  const location = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -33,12 +32,12 @@ const SignupPage = () => {
       password: Yup.string()
         .min(6, `${t('at_least_6_characters')}`)
         .required(t('required_field')),
-      confirmPassword: Yup.string()
+      confirmPassword: Yup.mixed()
         .oneOf(
-          [Yup.ref('password')],
+          [Yup.ref('password'), null],
           `${t('passwords_must_match')}`,
         )
-        .required(t('required_field')),
+        
     }),
     onSubmit: async (values) => {
       setValidFormError('');
@@ -48,7 +47,6 @@ const SignupPage = () => {
         const response = await axios.post(routes.signupPath(), { username, password });
         auth.logIn();
         localStorage.setItem('userId', JSON.stringify(response.data));
-        console.log(location)
         navigate('/');
       } catch (err) {
         formik.setSubmitting(false);
@@ -89,7 +87,7 @@ const SignupPage = () => {
                 onSubmit={formik.handleSubmit}
                 className="col-12 col-md-6 mt-3 mt-mb-0"
                 >
-                <h1 className='text-center mb-4'>{t('sign_up')}</h1>
+                <h1 className='text-center mb-4'>{t('registration')}</h1>
                 <fieldset disabled={formik.isSubmitting}>
                   <FloatingLabel
                     controlId='username'
@@ -98,6 +96,7 @@ const SignupPage = () => {
                     >
                     <Form.Control
                       name="username"
+                      className={formik.touched.username && formik.errors.username ? 'is-invalid' : ''}
                       autoComplete='username'
                       placeholder={t('from_3_to_20 characters')}
                       isInvalid={authFailed}
@@ -106,7 +105,7 @@ const SignupPage = () => {
                       {...formik.getFieldProps('username')}
                     />
                      {formik.touched.username && formik.errors.username ? (
-                      <div>{formik.errors.username}</div>
+                      <div className='invalid-tooltip'>{formik.errors.username}</div>
                       ) : null}
                   </FloatingLabel>
                   <FloatingLabel
@@ -116,6 +115,7 @@ const SignupPage = () => {
                     >
                     <Form.Control 
                       name='password'
+                      className={formik.touched.password && formik.errors.password ? 'is-invalid' : ''}
                       type='password'
                       autoComplete='password'
                       placeholder={t('at_least_6_characters')}
@@ -124,7 +124,7 @@ const SignupPage = () => {
                       {...formik.getFieldProps('password')}
                     />
                       {formik.touched.password && formik.errors.password ? (
-                      <div>{formik.errors.password}</div>
+                      <div className='invalid-tooltip'>{formik.errors.password}</div>
                       ) : null}
                   </FloatingLabel>
                   <FloatingLabel
@@ -134,15 +134,16 @@ const SignupPage = () => {
                     >
                     <Form.Control 
                       name='confirmPassword'
+                      className={ formik.touched.confirmPassword && formik.errors.confirmPassword ? 'is-invalid' : ''}
                       type='password'
-                      autoComplete='confirmPassword'
+                      autoComplete='new-password'
                       placeholder={t('passwords_must_match')}
                       isInvalid={authFailed}
                       required
                       {...formik.getFieldProps('confirmPassword')}
                     />
                       {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-                      <div>{formik.errors.confirmPassword}</div>
+                      <div className='invalid-tooltip'>{formik.errors.confirmPassword}</div>
                       ) : null}
                     <Form.Control.Feedback type="invalid">
                       {validFormError}
@@ -155,7 +156,7 @@ const SignupPage = () => {
                     className='w-100'
                     >
                       {t('sign_up')}
-                    </Button>
+                  </Button>
                 </fieldset>
               </Form>
             </div>
