@@ -30,12 +30,15 @@ const SignupPage = () => {
         .min(3, `${t('from_3_to_20 characters')}`)
         .max(20, `${t('from_3_to_20 characters')}`)
         .required(t('required_field')),
-      password: Yup.string().min(6, `${t('at_least_6_characters')}`),
+      password: Yup.string()
+        .min(6, `${t('at_least_6_characters')}`)
+        .required(t('required_field')),
       confirmPassword: Yup.string()
         .oneOf(
           [Yup.ref('password')],
           `${t('passwords_must_match')}`,
-        ),
+        )
+        .required(t('required_field')),
     }),
     onSubmit: async (values) => {
       setValidFormError('');
