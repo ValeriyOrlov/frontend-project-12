@@ -37,6 +37,7 @@ const SignupPage = () => {
           [Yup.ref('password'), null],
           `${t('passwords_must_match')}`,
         )
+        .required(t('required_field')),
         
     }),
     onSubmit: async (values) => {
