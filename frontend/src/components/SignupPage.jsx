@@ -105,7 +105,7 @@ const SignupPage = () => {
                      {formik.touched.username && formik.errors.username && <div className='invalid-tooltip'>{formik.errors.username}</div>}
                   </FloatingLabel>
                   <FloatingLabel
-                    controlId="floatingInput"
+                    controlId="password"
                     label={t('password')}
                     className="mb-3"
                     >
@@ -122,7 +122,7 @@ const SignupPage = () => {
                       {formik.touched.password && formik.errors.password && <div className='invalid-tooltip'>{formik.errors.password}</div>}
                   </FloatingLabel>
                   <FloatingLabel
-                    controlId="floatingInput"
+                    controlId="confirmPassword"
                     label={t('confirm_pswrd')}
                     className="mb-4"
                     >
