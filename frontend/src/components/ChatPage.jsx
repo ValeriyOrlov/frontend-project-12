@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 import { actions as channelsActions } from '../slices/channelsInfo';
 import { actions as modalActions } from '../slices/modal';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const getAuthHeader = () => {
@@ -97,7 +97,6 @@ const ChatPage = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </div>
   )
 }
