@@ -24,13 +24,14 @@ const Channel = ({ channel }) => {
 
   const renderRemovableChannel = (name) => {
     return (
-      <Dropdown className='d-flex btn-group'>
+      <Dropdown className='d-flex btn-group' role='group'>
         <Button 
           className={`w-100 rounded-0 text-start text-truncate ${currentChannelId === channel.id ? 'btn btn-secondary' : 'btn'}`}
           variant={null}
           onClick={setCurrentChannelId}
         >
-          # {name}
+          <span className='me-1'>#</span>
+          {name}
         </Button>
         <Dropdown.Toggle
           className={`flex-grow-0 dropdown-toggle-split ${currentChannelId === channel.id ? 'btn btn-secondary' : 'btn'}`}
