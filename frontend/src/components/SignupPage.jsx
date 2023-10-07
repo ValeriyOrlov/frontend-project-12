@@ -32,13 +32,11 @@ const SignupPage = () => {
       password: Yup.string()
         .min(6, `${t('at_least_6_characters')}`)
         .required(t('required_field')),
-      confirmPassword: Yup.mixed()
+      confirmPassword: Yup.string()
         .oneOf(
           [Yup.ref('password'), null],
           `${t('passwords_must_match')}`,
         )
-        .required(t('required_field')),
-        
     }),
     onSubmit: async (values) => {
       setValidFormError('');
@@ -89,7 +87,6 @@ const SignupPage = () => {
                 className="col-12 col-md-6 mt-3 mt-mb-0"
                 >
                 <h1 className='text-center mb-4'>{t('registration')}</h1>
-                <fieldset disabled={formik.isSubmitting}>
                   <FloatingLabel
                     controlId='username'
                     label={t('username')}
@@ -97,7 +94,7 @@ const SignupPage = () => {
                     >
                     <Form.Control
                       name="username"
-                      className={formik.touched.username && formik.errors.username ? 'is-invalid' : ''}
+                      className={formik.touched.username && formik.errors.username && 'is-invalid'}
                       autoComplete='username'
                       placeholder={t('from_3_to_20 characters')}
                       isInvalid={authFailed}
@@ -105,9 +102,7 @@ const SignupPage = () => {
                       ref={inputRef}
                       {...formik.getFieldProps('username')}
                     />
-                     {formik.touched.username && formik.errors.username ? (
-                      <div className='invalid-tooltip'>{formik.errors.username}</div>
-                      ) : null}
+                     {formik.touched.username && formik.errors.username && <div className='invalid-tooltip'>{formik.errors.username}</div>}
                   </FloatingLabel>
                   <FloatingLabel
                     controlId="floatingInput"
@@ -116,7 +111,7 @@ const SignupPage = () => {
                     >
                     <Form.Control 
                       name='password'
-                      className={formik.touched.password && formik.errors.password ? 'is-invalid' : ''}
+                      className={formik.touched.password && formik.errors.password && 'is-invalid'}
                       type='password'
                       autoComplete='password'
                       placeholder={t('at_least_6_characters')}
@@ -124,9 +119,7 @@ const SignupPage = () => {
                       required
                       {...formik.getFieldProps('password')}
                     />
-                      {formik.touched.password && formik.errors.password ? (
-                      <div className='invalid-tooltip'>{formik.errors.password}</div>
-                      ) : null}
+                      {formik.touched.password && formik.errors.password && <div className='invalid-tooltip'>{formik.errors.password}</div>}
                   </FloatingLabel>
                   <FloatingLabel
                     controlId="floatingInput"
@@ -135,7 +128,7 @@ const SignupPage = () => {
                     >
                     <Form.Control 
                       name='confirmPassword'
-                      className={ formik.touched.confirmPassword && formik.errors.confirmPassword ? 'is-invalid' : ''}
+                      className={formik.values.confirmPassword !== formik.values.password && 'is-invalid'}
                       type='password'
                       autoComplete='new-password'
                       placeholder={t('passwords_must_match')}
@@ -143,12 +136,8 @@ const SignupPage = () => {
                       required
                       {...formik.getFieldProps('confirmPassword')}
                     />
-                      {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-                      <div className='invalid-tooltip'>{formik.errors.confirmPassword}</div>
-                      ) : null}
-                    <Form.Control.Feedback type="invalid">
-                      {validFormError}
-                    </Form.Control.Feedback>
+                      {formik.values.confirmPassword !== formik.values.password && <div className='invalid-tooltip'>{t('passwords_must_match')}</div>}
+                      {!!validFormError && <div className='invalid-tooltip'>{validFormError}</div>}
                   </FloatingLabel>
                   <Button 
                     type="submit" 
@@ -158,7 +147,6 @@ const SignupPage = () => {
                     >
                       {t('sign_up')}
                   </Button>
-                </fieldset>
               </Form>
             </div>
           </div>
