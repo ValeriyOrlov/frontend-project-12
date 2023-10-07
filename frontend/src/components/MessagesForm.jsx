@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import { Form, Button, Image } from 'react-bootstrap';
 
-import socket from '../socket';
 import { useTranslation } from 'react-i18next';
+import socket from '../socket';
 
 const MessagesForm = () => {
   const messageInputRef = useRef();
-  const username = JSON.parse(localStorage.getItem('userId')).username;
+  const { username } = JSON.parse(localStorage.getItem('userId'));
   const { currentChannelId } = useSelector((state) => state.channelsInfo);
   const { t } = useTranslation();
 
@@ -21,7 +21,7 @@ const MessagesForm = () => {
     const message = {
       body: data.get('body'),
       channelId: currentChannelId,
-      username: username,
+      username,
     };
 
     socket.emit('newMessage', message, (res) => {
@@ -29,35 +29,35 @@ const MessagesForm = () => {
         socket.emit('newMessage', message);
       }
     });
-    messageInputRef.current.value = "";
-  }
+    messageInputRef.current.value = '';
+  };
 
   return (
-    <div className='mt-auto px-5 py-3'>
-    <Form 
-      className='py-1 border rounded-2' 
-      onSubmit={submitMessage}
-    >
-      <div className='input-group has-validation'>
-        <Form.Control
-          className='border-0 p-0 ps-2'
-          name='body'
-          aria-label='Новое сообщение'
-          placeholder={t('enter_a_message')}
-          ref={messageInputRef}
-        />
-        <Button
-          variant='light'
-          type='submit'
-        >
-        <Image 
-          src='../../images/send_msg_btn.png'
-          style={{ width: '32px' }} 
-        />
-        </Button>
-      </div>
-    </Form>
-  </div>
+    <div className="mt-auto px-5 py-3">
+      <Form
+        className="py-1 border rounded-2"
+        onSubmit={submitMessage}
+      >
+        <div className="input-group has-validation">
+          <Form.Control
+            className="border-0 p-0 ps-2"
+            name="body"
+            aria-label="Новое сообщение"
+            placeholder={t('enter_a_message')}
+            ref={messageInputRef}
+          />
+          <Button
+            variant="light"
+            type="submit"
+          >
+            <Image
+              src="../../images/send_msg_btn.png"
+              style={{ width: '32px' }}
+            />
+          </Button>
+        </div>
+      </Form>
+    </div>
   );
 };
 
