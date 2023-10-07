@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isOpened: false,
   type: null,
   extra: null,
-}
+};
 
 const modalSlice = createSlice({
   name: 'modal',
@@ -19,7 +19,7 @@ const modalSlice = createSlice({
       state.isOpened = false;
       state.type = null;
       state.extra = null;
-    }
+    },
   },
 });
 
