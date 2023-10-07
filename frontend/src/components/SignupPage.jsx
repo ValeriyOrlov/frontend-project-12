@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { useFormik } from 'formik';
 import { Form, FloatingLabel, Button } from 'react-bootstrap';
 import * as Yup from 'yup';

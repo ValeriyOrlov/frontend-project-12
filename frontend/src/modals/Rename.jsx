@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable react/jsx-props-no-spreading */
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
@@ -9,7 +11,12 @@ import socket from '../socket';
 import { actions as modalActions } from '../slices/modal';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Rename = ({ channels, isOpened, type, extra }) => {
+const Rename = ({
+  channels,
+  isOpened,
+  type,
+  extra,
+}) => {
   const dispatch = useDispatch();
   const channelsNames = channels.map(({ name }) => name);
   const inputRef = useRef();

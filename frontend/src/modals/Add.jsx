@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';

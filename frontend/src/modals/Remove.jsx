@@ -7,7 +7,12 @@ import { actions as modalActions } from '../slices/modal';
 import socket from '../socket';
 import 'react-toastify/dist/ReactToastify.css';
 
-const RemoveChannel = ({ channels, isOpened, type, extra }) => {
+const RemoveChannel = ({
+  channels,
+  isOpened,
+  type,
+  extra,
+}) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 

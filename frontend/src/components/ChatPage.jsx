@@ -76,7 +76,8 @@ const ChatPage = () => {
               className="p-0 text-primary btn btn-group-vertical"
               onClick={openAddChannelModal}
               type="button"
-            > +
+            >
+              +
             </button>
           </div>
           <Channels />

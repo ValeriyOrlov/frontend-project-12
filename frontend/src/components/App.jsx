@@ -63,14 +63,18 @@ const LogoImg = () => {
 
   return (
     auth.loggedIn
-      ? <Image
+      ? (
+        <Image
           src="../../images/auth_success_logo.jpg"
           style={{ width: '68px' }}
-      />
-      : <Image
+        />
+      )
+      : (
+        <Image
           src="../../images/logo.jpg"
           style={{ width: '68px' }}
-      />
+        />
+      )
   );
 };
 
