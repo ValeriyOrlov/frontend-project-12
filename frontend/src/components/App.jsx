@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { BrowserRouter as Router, 
-  Route, 
+import {
+  BrowserRouter as Router,
+  Route,
   Routes,
   Navigate,
-  NavLink, 
+  NavLink,
   useLocation
 } from 'react-router-dom';
 import { Navbar, Button, Image } from 'react-bootstrap';
-import socket from '../socket';
 import { useTranslation } from 'react-i18next';
+import { Provider, ErrorBoundary } from '@rollbar/react';
+import { ToastContainer } from 'react-toastify';
+import socket from '../socket';
 import LoginPage from './LoginPage';
 import ChatPage from './ChatPage';
 import AuthContext from '../contexts';
@@ -18,9 +21,6 @@ import SignupPage from './SignupPage';
 import ErrorPage from './ErrorPage';
 import { actions as messagesActions } from '../slices/messagesInfo';
 import { actions as channelsActions } from '../slices/channelsInfo';
-import { Provider, ErrorBoundary } from '@rollbar/react';
-import { ToastContainer } from 'react-toastify';
-
 
 const rollbarConfig = {
   accessToken: '3150ed3210e24b52acb61437a05bedf0',
