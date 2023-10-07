@@ -38,6 +38,7 @@ const Channel = ({ channel }) => {
           id="react-aria6138745391-1"
           variant={null}
         >
+          <span className='visually-hidden'>Управление каналом</span>
         </Dropdown.Toggle>
   
         <Dropdown.Menu>
