@@ -99,7 +99,7 @@ const LoginPage = () => {
                       required
                       {...formik.getFieldProps('password')}
                     />
-                    <Form.Control.Feedback type="invalid">{t('Incorrect_username_and_password')}</Form.Control.Feedback>
+                    <Form.Control.Feedback className='invalid-tooltip'>{t('Incorrect_username_and_password')}</Form.Control.Feedback>
                   </FloatingLabel>
                   <Button 
                     type="submit" 
