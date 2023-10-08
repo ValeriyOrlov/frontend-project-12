@@ -104,7 +104,11 @@ const App = () => {
           <AuthProvider>
             <Router>
               <div className="d-flex flex-column h-100">
-                <Navbar expand="lg" className="shadow-sm bg-white">
+                <Navbar
+                  expand="lg"
+                  className="shadow-sm bg-white"
+                  style={{ zIndex: '6' }}
+                >
                   <div className="container flex-nowrap">
                     <NavLink
                       to="/"
