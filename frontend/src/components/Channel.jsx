@@ -23,9 +23,12 @@ const Channel = ({ channel }) => {
   };
 
   const renderRemovableChannel = (name) => (
-    <Dropdown className="d-flex btn-group" role="group">
+    <Dropdown
+      className="d-flex btn-group"
+      role="group"
+    >
       <Button
-        className={`w-100 rounded-0 text-start text-truncate ${currentChannelId === channel.id ? 'btn btn-secondary' : 'btn'}`}
+        className={`w-100 rounded-0 text-start text-truncate ${currentChannelId === channel.id ? 'btn btn-success' : 'btn'}`}
         variant={null}
         onClick={setCurrentChannelId}
       >
@@ -33,7 +36,7 @@ const Channel = ({ channel }) => {
         {name}
       </Button>
       <Dropdown.Toggle
-        className={`flex-grow-0 dropdown-toggle-split ${currentChannelId === channel.id ? 'btn btn-secondary' : 'btn'}`}
+        className={`flex-grow-0 dropdown-toggle-split ${currentChannelId === channel.id ? 'btn btn-success' : 'btn'}`}
         id="react-aria6138745391-1"
         variant={null}
       >
@@ -57,7 +60,7 @@ const Channel = ({ channel }) => {
 
   const renderNonRemovableChannel = (name) => (
     <button
-      className={`w-100 rounded-0 text-start btn ${currentChannelId === channel.id && 'btn-secondary'}`}
+      className={`w-100 rounded-0 text-start btn ${currentChannelId === channel.id && 'btn-success'}`}
       type="button"
       onClick={setCurrentChannelId}
     >
