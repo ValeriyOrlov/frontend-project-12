@@ -43,6 +43,7 @@ const MessagesForm = () => {
             className="border-0 p-0 ps-2"
             name="body"
             type="text"
+            autoComplete="off"
             aria-label="Новое сообщение"
             placeholder={t('enter_a_message')}
             ref={messageInputRef}
