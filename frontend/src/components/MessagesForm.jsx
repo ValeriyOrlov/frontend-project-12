@@ -42,6 +42,7 @@ const MessagesForm = () => {
           <Form.Control
             className="border-0 p-0 ps-2"
             name="body"
+            type="text"
             aria-label="Новое сообщение"
             placeholder={t('enter_a_message')}
             ref={messageInputRef}
