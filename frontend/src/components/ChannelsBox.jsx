@@ -13,7 +13,7 @@ const AuthButton = () => {
   const auth = useAuth();
 
   return (
-    auth.loggedIn && <Button variant="danger" onClick={auth.logOut}>{t('logout')}</Button>
+    auth.loggedIn && <Button variant="outline-danger" onClick={auth.logOut}>{t('logout')}</Button>
   );
 };
 

@@ -106,7 +106,7 @@ const LoginPage = () => {
                   <Button
                     type="submit"
                     disabled={formik.isSubmitting}
-                    variant="outline-primary"
+                    variant="outline-success"
                     className="w-100"
                   >
                     {t('login')}

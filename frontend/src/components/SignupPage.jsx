@@ -144,7 +144,7 @@ const SignupPage = () => {
                 <Button
                   type="submit"
                   disabled={formik.isSubmitting}
-                  variant="outline-primary"
+                  variant="success"
                   className="w-100"
                 >
                   {t('sign_up')}
