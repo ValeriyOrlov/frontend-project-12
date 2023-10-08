@@ -52,7 +52,7 @@ const MessagesForm = () => {
           >
             <Image
               src="../../images/send_msg_btn.png"
-              style={{ width: '32px' }}
+              style={{ width: '28px' }}
             />
           </Button>
         </div>

@@ -16,7 +16,6 @@ const MessagesBox = () => {
         backgroundRepeat: 'repeat',
         backgroundSize: '50%',
       }}
-
       ref={messagesBoxRef}
     >
       <Messages />
