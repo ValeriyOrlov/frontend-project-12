@@ -10,7 +10,13 @@ const MessagesBox = () => {
   return (
     <div
       id="messages-box"
-      className="chat-messages overflow-auto px-5"
+      className="d-flex flex-column chat-messages overflow-auto px-5 h-100"
+      style={{
+        backgroundImage: 'url("../../images/message-box-background.jpg"',
+        backgroundRepeat: 'repeat',
+        backgroundSize: '50%',
+      }}
+
       ref={messagesBoxRef}
     >
       <Messages />
