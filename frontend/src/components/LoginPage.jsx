@@ -13,18 +13,20 @@ import 'react-toastify/dist/ReactToastify.css';
 const LoginPage = () => {
   const auth = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
+  const [hidden, setHidden] = useState(true);
   const inputRef = useRef();
   const location = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   useEffect(() => {
-    const { from } = location.state;
     if (auth.loggedIn) {
-      navigate(from);
+      navigate('/');
     }
     inputRef.current.focus();
-  }, []);
+  }, [auth.loggedIn, navigate]);
+
+  const showPswd = () => (hidden ? setHidden(false) : setHidden(true));
 
   const formik = useFormik({
     initialValues: { username: '', password: '' },
@@ -91,22 +93,32 @@ const LoginPage = () => {
                       {...formik.getFieldProps('username')}
                     />
                   </FloatingLabel>
-                  <FloatingLabel
-                    controlId="floatingInput"
-                    label={t('password')}
-                    className="mb-3"
-                  >
-                    <Form.Control
-                      name="password"
-                      autoComplete="password"
-                      type="password"
-                      placeholder={t('password')}
-                      isInvalid={authFailed}
-                      required
-                      {...formik.getFieldProps('password')}
-                    />
-                    <Form.Control.Feedback className="invalid-tooltip">{t('Incorrect_username_and_password')}</Form.Control.Feedback>
-                  </FloatingLabel>
+                  <div className="d-flex flex-row">
+                    <FloatingLabel
+                      controlId="floatingInput"
+                      label={t('password')}
+                      className="mb-3"
+                    >
+                      <Form.Control
+                        name="password"
+                        autoComplete="password"
+                        type={hidden ? 'password' : 'text'}
+                        placeholder={t('password')}
+                        isInvalid={authFailed}
+                        required
+                        {...formik.getFieldProps('password')}
+                      />
+                      <Form.Control.Feedback className="invalid-tooltip">{t('Incorrect_username_and_password')}</Form.Control.Feedback>
+                    </FloatingLabel>
+                    <Button
+                      onClick={showPswd}
+                      variant="light"
+                      style={{ height: '58px' }}
+                    >
+                      {hidden ? <img src="../../images/closed_eye.png" alt="closed_eye_img" style={{ width: '32px' }} /> : <img src="../../images/opened_eye.png" alt="opened_eye_img" style={{ width: '32px' }} />}
+                    </Button>
+                  </div>
+
                   <Button
                     type="submit"
                     disabled={formik.isSubmitting}

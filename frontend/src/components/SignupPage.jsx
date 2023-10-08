@@ -15,6 +15,7 @@ const SignupPage = () => {
   const auth = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
   const [validFormError, setValidFormError] = useState('');
+  const [hidden, setHidden] = useState(true);
   const inputRef = useRef();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -22,6 +23,8 @@ const SignupPage = () => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
+  const showPswd = () => (hidden ? setHidden(false) : setHidden(true));
 
   const formik = useFormik({
     initialValues: { username: '', password: '', confirmPassword: '' },
@@ -106,23 +109,32 @@ const SignupPage = () => {
                   />
                   {formik.touched.username && formik.errors.username && <div className="invalid-tooltip">{formik.errors.username}</div>}
                 </FloatingLabel>
-                <FloatingLabel
-                  controlId="password"
-                  label={t('password')}
-                  className="mb-3"
-                >
-                  <Form.Control
-                    name="password"
-                    className={formik.touched.password && formik.errors.password && 'is-invalid'}
-                    type="password"
-                    autoComplete="password"
-                    placeholder={t('at_least_6_characters')}
-                    isInvalid={authFailed}
-                    required
-                    {...formik.getFieldProps('password')}
-                  />
-                  {formik.touched.password && formik.errors.password && <div className="invalid-tooltip">{formik.errors.password}</div>}
-                </FloatingLabel>
+                <div className="d-flex flex-row">
+                  <FloatingLabel
+                    controlId="password"
+                    label={t('password')}
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      name="password"
+                      className={formik.touched.password && formik.errors.password && 'is-invalid'}
+                      type={hidden ? 'password' : 'text'}
+                      autoComplete="password"
+                      placeholder={t('at_least_6_characters')}
+                      isInvalid={authFailed}
+                      required
+                      {...formik.getFieldProps('password')}
+                    />
+                    {formik.touched.password && formik.errors.password && <div className="invalid-tooltip">{formik.errors.password}</div>}
+                  </FloatingLabel>
+                  <Button
+                    onClick={showPswd}
+                    variant="light"
+                    style={{ height: '58px' }}
+                  >
+                    {hidden ? <img src="../../images/closed_eye.png" alt="closed_eye_img" style={{ width: '32px' }} /> : <img src="../../images/opened_eye.png" alt="opened_eye_img" style={{ width: '32px' }} />}
+                  </Button>
+                </div>
                 <FloatingLabel
                   controlId="confirmPassword"
                   label={t('confirm_pswrd')}
@@ -131,7 +143,7 @@ const SignupPage = () => {
                   <Form.Control
                     name="confirmPassword"
                     className={formik.values.confirmPassword !== formik.values.password && 'is-invalid'}
-                    type="password"
+                    type={hidden ? 'password' : 'text'}
                     autoComplete="new-password"
                     placeholder={t('passwords_must_match')}
                     isInvalid={authFailed}
