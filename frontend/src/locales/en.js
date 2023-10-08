@@ -8,7 +8,7 @@ const en = {
     password: 'Password',
     no_account: 'New in the birdhouse?',
     registration: 'Registration',
-    sign_up: 'Sign_up',
+    sign_up: 'Sign up',
     username: 'Username',
     confirm_pswrd: 'Confirm password',
     delete: 'Delete',
