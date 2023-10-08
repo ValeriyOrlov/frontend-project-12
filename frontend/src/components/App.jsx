@@ -8,8 +8,7 @@ import {
   NavLink,
   useLocation,
 } from 'react-router-dom';
-import { Navbar, Button, Image } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import { Navbar, Image } from 'react-bootstrap';
 import { Provider, ErrorBoundary } from '@rollbar/react';
 import { ToastContainer } from 'react-toastify';
 import socket from '../socket';
@@ -31,11 +30,9 @@ const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const logIn = () => {
     setLoggedIn(true);
-    console.log(localStorage);
   };
   const logOut = () => {
     localStorage.removeItem('userId');
-    console.log(localStorage);
     setLoggedIn(false);
   };
 
@@ -44,17 +41,6 @@ const AuthProvider = ({ children }) => {
     <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
       {children}
     </AuthContext.Provider>
-  );
-};
-
-const AuthButton = () => {
-  const { t } = useTranslation();
-  const auth = useAuth();
-
-  return (
-    auth.loggedIn
-      ? <Button onClick={auth.logOut}>{t('logout')}</Button>
-      : null
   );
 };
 
@@ -124,7 +110,7 @@ const App = () => {
                       to="/"
                       style={{ textDecoration: 'none', color: 'black' }}
                     >
-                      Hexlet Chat
+                      Scvorechnik
                       <LogoImg />
                     </NavLink>
                     <Image
@@ -151,7 +137,6 @@ const App = () => {
                       src="../../images/bird_4.jpg"
                       style={{ height: '46px' }}
                     />
-                    <AuthButton />
                   </div>
                 </Navbar>
                 <Routes>
