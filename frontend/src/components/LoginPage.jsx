@@ -34,8 +34,8 @@ const LoginPage = () => {
       setAuthFailed(false);
       try {
         const response = await axios.post(routes.loginPath(), values);
-        auth.logIn();
         localStorage.setItem('userId', JSON.stringify(response.data));
+        auth.logIn();
         const { from } = location.state;
         navigate(from);
       } catch (err) {
@@ -118,7 +118,6 @@ const LoginPage = () => {
                       {hidden ? <img src="../../images/closed_eye.png" alt="closed_eye_img" style={{ width: '32px' }} /> : <img src="../../images/opened_eye.png" alt="opened_eye_img" style={{ width: '32px' }} />}
                     </Button>
                   </div>
-
                   <Button
                     type="submit"
                     disabled={formik.isSubmitting}
