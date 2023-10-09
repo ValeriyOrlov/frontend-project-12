@@ -1,5 +1,6 @@
 const ru = {
   translation: {
+    greeting: 'Добро пожаловать в Scvorechnik',
     key_zero: '{{count}} сообщений',
     key_one: '{{count}} сообщение',
     key_few: '{{count}} сообщения',

@@ -1,5 +1,6 @@
 const en = {
   translation: {
+    greeting: 'Welcome to the Scvorechnik',
     key_one: '{{count}} message',
     key_other: '{{count}} messages',
     login: 'Sign in',
