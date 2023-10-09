@@ -10,7 +10,8 @@ import {
 } from 'react-router-dom';
 import { Navbar, Image } from 'react-bootstrap';
 import { Provider, ErrorBoundary } from '@rollbar/react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 import socket from '../socket';
 import LoginPage from './LoginPage';
 import ChatPage from './ChatPage';
@@ -28,7 +29,10 @@ const rollbarConfig = {
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const { t } = useTranslation();
   const logIn = () => {
+    const userName = JSON.parse(localStorage.getItem('userId')).username;
+    toast(`${t('greeting')}, ${userName}!`);
     setLoggedIn(true);
   };
   const logOut = () => {
@@ -38,7 +42,12 @@ const AuthProvider = ({ children }) => {
 
   return (
     /* eslint-disable-next-line  react/jsx-no-constructed-context-values */
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
+    <AuthContext.Provider value={{
+      loggedIn,
+      logIn,
+      logOut,
+    }}
+    >
       {children}
     </AuthContext.Provider>
   );
