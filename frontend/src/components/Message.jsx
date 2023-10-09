@@ -6,7 +6,7 @@ const UsersMessage = ({ message }) => {
   return (
     <div
       className="d-flex"
-      style={{ 'justify-content': 'flex-start' }}
+      style={{ justifyContent: 'flex-start' }}
     >
       <div
         className="d-flex m-1 p-1 text-break mb-2"
@@ -14,10 +14,10 @@ const UsersMessage = ({ message }) => {
           color: 'white',
           maxWidth: '75%',
           border: '1px solid #ffebdc',
-          'border-top-right-radius': '10px 10px',
-          'border-bottom-right-radius': '10px 10px',
-          'border-top-left-radius': '10px 10px',
-          'background-color': '#b0695f',
+          borderTopRightRadius: '10px 10px',
+          borderBottomRightRadius: '10px 10px',
+          borderTopLeftRadius: '10px 10px',
+          backgroundColor: '#b0695f',
           opacity: '0.85',
         }}
       >
@@ -38,17 +38,17 @@ const OtherUsersMessage = ({ message }) => {
   return (
     <div
       className="d-flex"
-      style={{ 'justify-content': 'flex-end' }}
+      style={{ justifyContent: 'flex-end' }}
     >
       <div
         className="d-flex m-1 p-1 text-break mb-2"
         style={{
           maxWidth: '75%',
           border: '1px solid #b0695f',
-          'border-top-left-radius': '10px 10px',
-          'border-bottom-left-radius': '10px 10px',
-          'border-top-right-radius': '10px 10px',
-          'background-color': '#ffebdc',
+          borderTopLeftRadius: '10px 10px',
+          borderBottomLeftRadius: '10px 10px',
+          borderTopRightRadius: '10px 10px',
+          backgroundColor: '#ffebdc',
           opacity: '0.85',
         }}
       >
