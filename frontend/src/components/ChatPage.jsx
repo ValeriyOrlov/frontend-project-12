@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import ChannelsBox from './ChannelsBox';
 import MessagesForm from './MessagesForm';
 import MessagesBox from './MessagesBox';
-
 import routes from '../routes';
 
 import { actions as channelsActions } from '../slices/channelsInfo';
@@ -15,11 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
 
-  if (userId && userId.token) {
-    return { Authorization: `Bearer ${userId.token}` };
-  }
-
-  return {};
+  return userId && userId.token ? { Authorization: `Bearer ${userId.token}` } : {};
 };
 
 const ChatPage = () => {
