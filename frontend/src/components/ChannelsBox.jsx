@@ -11,9 +11,13 @@ import { actions as modalActions } from '../slices/modal';
 const AuthButton = () => {
   const { t } = useTranslation();
   const auth = useAuth();
+  const userName = JSON.parse(localStorage.getItem('userId')).username;
 
   return (
-    auth.loggedIn && <Button variant="outline-danger" onClick={auth.logOut}>{t('logout')}</Button>
+    <div className="d-flex flex-column">
+      <h2 className="m-1">{userName}</h2>
+      <Button variant="outline-danger" onClick={auth.logOut}>{t('logout')}</Button>
+    </div>
   );
 };
 
