@@ -24,6 +24,10 @@ const MessagesForm = () => {
       username,
     };
 
+    if (message.body.length === 0) {
+      return;
+    }
+
     socket.emit('newMessage', message, (res) => {
       if (res.status !== 'ok') {
         socket.emit('newMessage', message);
