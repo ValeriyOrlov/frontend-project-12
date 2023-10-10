@@ -19,9 +19,11 @@ const MessagesForm = () => {
     event.preventDefault();
     const data = new FormData(event.target);
     const date = new Date();
+    const hours = String(date.getHours()).length === 1 ? `0${date.getHours()}` : date.getHours();
+    const minutes = String(date.getMinutes()).length === 1 ? `0${date.getMinutes()}` : date.getMinutes();
     const time = {
-      hours: date.getHours(),
-      minutes: date.getMinutes(),
+      hours,
+      minutes,
     };
 
     const message = {
