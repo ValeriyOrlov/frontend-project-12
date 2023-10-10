@@ -53,6 +53,7 @@ const LoginPage = () => {
           toast(t('Connection_error'));
           return;
         }
+        toast(err.message);
         throw err;
       }
     },

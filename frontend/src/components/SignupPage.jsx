@@ -60,14 +60,20 @@ const SignupPage = () => {
           return;
         }
         if (err.isAxiosError && err.response.status === 409) {
+          console.log(err);
           setValidFormError(`${t('such_a_user_already_exists')}`);
           inputRef.current.select();
+          return;
+        }
+        if (err.isAxiosError && err.response.status === 500) {
+          toast(t('server_error'));
           return;
         }
         if (err.message === 'Network Error') {
           toast(t('Connection_error'));
           return;
         }
+        toast(err.message);
         throw err;
       }
     },
