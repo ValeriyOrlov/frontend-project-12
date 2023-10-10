@@ -18,10 +18,17 @@ const MessagesForm = () => {
   const submitMessage = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
+    const date = new Date();
+    const time = {
+      hours: date.getHours(),
+      minutes: date.getMinutes(),
+    };
+
     const message = {
       body: data.get('body'),
       channelId: currentChannelId,
       username,
+      time,
     };
 
     if (message.body.length === 0) {

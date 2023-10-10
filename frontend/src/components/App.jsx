@@ -97,14 +97,7 @@ const App = () => {
 
   useEffect(() => {
     socket.on('newMessage', (message) => {
-      const date = new Date();
-      const time = {
-        hours: date.getHours(),
-        minutes: date.getMinutes(),
-      };
-
-      const msg = { ...message, time };
-      dispatch(messagesActions.addMessage(msg));
+      dispatch(messagesActions.addMessage(message));
     });
     socket.on('newChannel', (channel) => {
       dispatch(channelsActions.addChannel(channel));
