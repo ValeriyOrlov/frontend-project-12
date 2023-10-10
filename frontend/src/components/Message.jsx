@@ -40,7 +40,7 @@ const OtherUsersMessage = ({ message }) => {
       style={{ justifyContent: 'flex-end' }}
     >
       <div
-        className="d-flex m-1 p-1 text-break mb-2"
+        className="d-flex flex-column m-1 p-1 text-break mb-2"
         style={{
           maxWidth: '75%',
           borderTopLeftRadius: '10px 10px',
