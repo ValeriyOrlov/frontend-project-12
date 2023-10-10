@@ -32,7 +32,19 @@ const AuthProvider = ({ children }) => {
   const { t } = useTranslation();
   const logIn = () => {
     const userName = JSON.parse(localStorage.getItem('userId')).username;
-    toast(`${t('greeting')}, ${userName}!`);
+    toast(
+      `${t('greeting')}, ${userName}!`,
+      {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      },
+    );
     setLoggedIn(true);
   };
   const logOut = () => {
@@ -85,7 +97,14 @@ const App = () => {
 
   useEffect(() => {
     socket.on('newMessage', (message) => {
-      dispatch(messagesActions.addMessage(message));
+      const date = new Date();
+      const time = {
+        hours: date.getHours(),
+        minutes: date.getMinutes(),
+      };
+
+      const msg = { ...message, time };
+      dispatch(messagesActions.addMessage(msg));
     });
     socket.on('newChannel', (channel) => {
       dispatch(channelsActions.addChannel(channel));
