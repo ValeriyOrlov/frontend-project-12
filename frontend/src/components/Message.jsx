@@ -9,24 +9,23 @@ const UsersMessage = ({ message }) => {
       style={{ justifyContent: 'flex-start' }}
     >
       <div
-        className="d-flex m-1 p-1 text-break mb-2"
+        className="d-flex flex-column m-1 p-1 text-break mb-1"
         style={{
           color: 'white',
           maxWidth: '75%',
-          border: '1px solid #ffebdc',
           borderTopRightRadius: '10px 10px',
           borderBottomRightRadius: '10px 10px',
           borderTopLeftRadius: '10px 10px',
           backgroundColor: '#b0695f',
-          opacity: '0.85',
         }}
       >
-        <p>
+        <span>
           <b>{message.username}</b>
           :
           {' '}
           {clearedMsg}
-        </p>
+        </span>
+        <span style={{ textAlign: 'end', fontSize: '0.8em' }}>{`${message.time.hours}:${message.time.minutes}`}</span>
       </div>
     </div>
   );
@@ -44,20 +43,19 @@ const OtherUsersMessage = ({ message }) => {
         className="d-flex m-1 p-1 text-break mb-2"
         style={{
           maxWidth: '75%',
-          border: '1px solid #b0695f',
           borderTopLeftRadius: '10px 10px',
           borderBottomLeftRadius: '10px 10px',
           borderTopRightRadius: '10px 10px',
           backgroundColor: '#ffebdc',
-          opacity: '0.85',
         }}
       >
-        <p>
+        <span>
           <b>{message.username}</b>
           :
           {' '}
           {clearedMsg}
-        </p>
+        </span>
+        <span style={{ textAlign: 'end', fontSize: '0.8em' }}>{`${message.time.hours}:${message.time.minutes}`}</span>
       </div>
     </div>
   );
